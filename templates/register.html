@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediQR - Create Medical Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        MediQR
+    </div>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+    </nav>
+
+</header>
+
+
+<main class="registration-container">
+
+    <div class="registration-card">
+
+        <h1>Create Your Medical Profile</h1>
+
+        <p class="form-description">
+            Add your essential medical information to create your
+            personal MediQR profile. Your information can help provide
+            important details during an emergency.
+        </p>
+
+
+        <form id="registrationForm">
+
+            <div class="form-group">
+
+                <label for="name">
+                    Full Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="age">
+                        Age *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        placeholder="Enter your age"
+                        min="1"
+                        max="120"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="gender">
+                        Gender *
+                    </label>
+
+                    <select
+                        id="gender"
+                        name="gender"
+                        required
+                    >
+
+                        <option value="">
+                            Select gender
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="blood_group">
+                    Blood Group *
+                </label>
+
+                <select
+                    id="blood_group"
+                    name="blood_group"
+                    required
+                >
+
+                    <option value="">
+                        Select blood group
+                    </option>
+
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="allergies">
+                    Allergies
+                </label>
+
+                <textarea
+                    id="allergies"
+                    name="allergies"
+                    placeholder="Enter known allergies, or write 'None'"
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="medical_conditions">
+                    Medical Conditions
+                </label>
+
+                <textarea
+                    id="medical_conditions"
+                    name="medical_conditions"
+                    placeholder="Enter existing medical conditions, or write 'None'"
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="medications">
+                    Current Medications
+                </label>
+
+                <textarea
+                    id="medications"
+                    name="medications"
+                    placeholder="Enter current medications, or write 'None'"
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="emergency_contact">
+                    Emergency Contact *
+                </label>
+
+                <input
+                    type="tel"
+                    id="emergency_contact"
+                    name="emergency_contact"
+                    placeholder="Enter emergency contact number"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Create Medical Profile
+            </button>
+
+
+            <p id="formMessage"></p>
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

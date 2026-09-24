@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediQR - Medical Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        MediQR
+    </div>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/register">My Medical Profile</a>
+    </nav>
+
+</header>
+
+
+<main class="patient-container">
+
+    {% if patient %}
+
+    <div class="patient-card">
+
+        <div class="patient-header">
+
+            <div>
+
+                <h1>My Medical Profile</h1>
+
+                <p>
+                    MediQR ID:
+                    <strong>{{ patient["patient_id"] }}</strong>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h2>Emergency Information</h2>
+
+        <div class="emergency-grid">
+
+            <div class="emergency-item">
+                <span>Blood Group</span>
+                <strong>{{ patient["blood_group"] }}</strong>
+            </div>
+
+            <div class="emergency-item">
+                <span>Allergies</span>
+                <strong>{{ patient["allergies"] or "None reported" }}</strong>
+            </div>
+
+            <div class="emergency-item">
+                <span>Medical Conditions</span>
+                <strong>
+                    {{ patient["medical_conditions"] or "None reported" }}
+                </strong>
+            </div>
+
+            <div class="emergency-item">
+                <span>Emergency Contact</span>
+                <strong>{{ patient["emergency_contact"] }}</strong>
+            </div>
+
+        </div>
+
+
+        <div class="patient-info">
+
+            <div class="info-item">
+                <span>Full Name</span>
+                <strong>{{ patient["name"] }}</strong>
+            </div>
+
+
+            <div class="info-item">
+                <span>Age</span>
+                <strong>{{ patient["age"] }}</strong>
+            </div>
+
+
+            <div class="info-item">
+                <span>Gender</span>
+                <strong>{{ patient["gender"] }}</strong>
+            </div>
+
+
+            <div class="info-item">
+                <span>Blood Group</span>
+                <strong>{{ patient["blood_group"] }}</strong>
+            </div>
+
+
+            <div class="info-item">
+                <span>Allergies</span>
+                <strong>{{ patient["allergies"] or "None" }}</strong>
+            </div>
+
+
+            <div class="info-item">
+                <span>Medical Conditions</span>
+                <strong>
+                    {{ patient["medical_conditions"] or "None" }}
+                </strong>
+            </div>
+
+
+            <div class="info-item">
+                <span>Current Medications</span>
+                <strong>
+                    {{ patient["medications"] or "None" }}
+                </strong>
+            </div>
+
+
+            <div class="info-item emergency">
+                <span>Emergency Contact</span>
+                <strong>
+                    {{ patient["emergency_contact"] }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="qr-section">
+
+            <h2>My MediQR</h2>
+
+            <p>
+                Scan this QR code to access the emergency medical
+                information associated with this MediQR profile.
+            </p>
+
+            <img
+                src="{{ url_for('static', filename='qr_codes/' + patient['patient_id'] + '.png') }}"
+                alt="My MediQR Code"
+                class="patient-qr"
+            >
+
+            <p class="qr-id">
+                MediQR ID: {{ patient["patient_id"] }}
+            </p>
+
+        </div>
+
+
+        <div class="patient-actions">
+
+            <a href="/dashboard" class="btn primary-btn">
+                Back to Dashboard
+            </a>
+
+            <a
+                href="/edit/{{ patient['patient_id'] }}"
+                class="btn secondary-btn"
+            >
+                Edit Medical Profile
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    {% else %}
+
+    <div class="patient-card not-found">
+
+        <h1>Medical Profile Not Found</h1>
+
+        <p>
+            {{ message }}
+        </p>
+
+        <a href="/dashboard" class="btn primary-btn">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 MediQR. All rights reserved.
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediQR - Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 700;
+            color: #173b66;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #173b66;
+            font-size: 17px;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        .dashboard-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 55px 30px;
+        }
+
+        .dashboard-welcome {
+            margin-bottom: 35px;
+        }
+
+        .dashboard-welcome h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .dashboard-welcome p {
+            font-size: 18px;
+            color: #64748b;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .dashboard-card {
+            display: block;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            min-height: 210px;
+            text-decoration: none;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #eaf1ff;
+            color: #2563eb;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-card p {
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 0 20px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .dashboard-container {
+                padding: 35px 20px;
+            }
+
+            .dashboard-welcome h1 {
+                font-size: 32px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        MediQR
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/register">
+            My Medical Profile
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="dashboard-container">
+
+
+    <section class="dashboard-welcome">
+
+        <h1>
+            Welcome, {{ username }} 👋
+        </h1>
+
+        <p>
+            Manage your MediQR medical profile and emergency QR code.
+        </p>
+
+    </section>
+
+
+    <section class="dashboard-grid">
+
+
+        <!-- Medical Profile -->
+
+        <a href="/register" class="dashboard-card">
+
+            <div class="dashboard-icon">
+                +
+            </div>
+
+            <h2>
+                My Medical Profile
+            </h2>
+
+            <p>
+                Create or manage your personal medical information.
+            </p>
+
+        </a>
+
+
+        <!-- QR Code -->
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-icon">
+                QR
+            </div>
+
+            <h2>
+                My QR Code
+            </h2>
+
+            <p>
+                Your MediQR code can be scanned to access your emergency
+                medical information.
+            </p>
+
+
+            {% if patient %}
+
+                <div style="margin-top: 20px; text-align: center;">
+
+                    <img
+                        src="{{ url_for('static', filename='qr_codes/' + patient['patient_id'] + '.png') }}"
+                        alt="My MediQR QR Code"
+                        style="width: 180px; height: 180px;"
+                    >
+
+                    <p style="margin-top: 10px;">
+
+                        <strong>
+                            MediQR ID: {{ patient['patient_id'] }}
+                        </strong>
+
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <p style="margin-top: 15px;">
+                    Create your medical profile to generate your QR code.
+                </p>
+
+                <a href="/register">
+                    Create Medical Profile
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Privacy & Security -->
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-icon">
+                🔐
+            </div>
+
+            <h2>
+                Privacy & Security
+            </h2>
+
+            <p>
+                Your medical information is connected to your personal
+                MediQR account.
+            </p>
+
+        </div>
+
+
+        <!-- Logout -->
+
+        <a href="/logout" class="dashboard-card">
+
+            <div class="dashboard-icon">
+                →
+            </div>
+
+            <h2>
+                Logout
+            </h2>
+
+            <p>
+                Sign out of your MediQR account.
+            </p>
+
+        </a>
+
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    © 2026 MediQR. All rights reserved.
+
+</footer>
+
+
+</body>
+
+</html>

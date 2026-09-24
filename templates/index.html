@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediQR - Digital Medical Profile</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        MediQR
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        {% if session.get("logged_in") %}
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/register">
+                My Medical Profile
+            </a>
+
+            <a href="#" onclick="showComingSoon(); return false;">
+                Scan QR
+            </a>
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="/login">
+                Login
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+</header>
+
+
+
+<main class="hero">
+
+
+    <section class="hero-content">
+
+        <h1>
+            Your Medical Information,
+            <span>One Scan Away.</span>
+        </h1>
+
+
+        <p>
+            MediQR provides quick and easy access to essential
+            medical information through a secure QR-based system.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            {% if session.get("logged_in") %}
+
+                <a href="/register" class="btn primary-btn">
+                    My Medical Profile
+                </a>
+
+            {% else %}
+
+                <a href="/signup" class="btn primary-btn">
+                    Create Your Profile
+                </a>
+
+            {% endif %}
+
+
+            <button
+                class="btn secondary-btn"
+                onclick="showComingSoon()"
+            >
+                Scan QR
+            </button>
+
+        </div>
+
+
+        <div class="patient-search">
+
+            <h3>
+                Access Medical Profile
+            </h3>
+
+            <p>
+                Enter a MediQR ID to access the available emergency information.
+            </p>
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="patientIdInput"
+                    placeholder="Example: MEDIQR-AB12CD34"
+                >
+
+
+                <button
+                    type="button"
+                    class="btn primary-btn"
+                    onclick="searchPatient()"
+                >
+                    Search
+                </button>
+
+            </div>
+
+
+            <p id="searchMessage"></p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <section class="hero-card">
+
+
+        <div class="qr-placeholder">
+
+            <div class="qr-pattern">
+
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </div>
+
+
+        <h2>
+            Scan. Access. Respond.
+        </h2>
+
+
+        <p>
+            A unique QR code connects each MediQR profile
+            to essential emergency medical information.
+        </p>
+
+
+    </section>
+
+
+</main>
+
+
+
+<section class="features">
+
+
+    <div class="feature-card">
+
+        <h3>
+            Quick Access
+        </h3>
+
+        <p>
+            Access important medical information quickly
+            when it is needed.
+        </p>
+
+    </div>
+
+
+
+    <div class="feature-card">
+
+        <h3>
+            Digital Profiles
+        </h3>
+
+        <p>
+            Keep essential medical information organized
+            in a secure digital profile.
+        </p>
+
+    </div>
+
+
+
+    <div class="feature-card">
+
+        <h3>
+            QR Based
+        </h3>
+
+        <p>
+            Use a unique QR code to access essential
+            emergency medical information.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<footer>
+
+    <p>
+        © 2026 MediQR. All rights reserved.
+    </p>
+
+</footer>
+
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
