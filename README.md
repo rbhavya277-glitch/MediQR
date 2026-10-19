@@ -1,119 +1,133 @@
-# MediQR 🏥
+# MediQR — QR-Based Emergency Medical Information System
 
-### QR-Based Emergency Medical Information System
+MediQR is a student-built web application that stores a user's medical profile and generates a QR code linked to that profile. It is intended as an educational prototype exploring how web technologies and QR codes can help make emergency medical information easier to retrieve.
 
-MediQR is a web-based emergency medical information system designed to make essential medical information accessible during emergencies using a QR code.
+> **Important:** This is a demo project, not a production-ready medical records system. Do not use it to store real patient information or rely on it for emergency care.
 
-The project allows users to manage their medical profiles and generate QR codes that can help others access important medical information when needed.
+## Features
 
-## 🚀 Features
+- Account signup, login, and logout
+- Personal dashboard
+- Medical profile creation and editing
+- Medical details including name, age, gender, blood group, allergies, medical conditions, medications, and emergency contact
+- Unique MediQR patient ID generation
+- QR code image generation for a patient ID
+- Patient record lookup by patient ID
+- Browser-based QR scanning interface using the `html5-qrcode` library
+- SQLite database storage
 
-- **User Login:** Provides a login interface for users.
-- **Medical Dashboard:** Allows users to view their medical profile.
-- **Profile Management:** Enables users to add or update their medical information.
-- **QR Code Generation:** Generates a QR code associated with the user's medical profile.
-- **QR Code Scanning:** Includes a QR scanning interface to support access to medical information.
-- **Web Interface:** Provides a simple interface for interacting with the system.
+## Technology Stack
 
-## 🛠️ Technologies Used
+- **Python** — application logic
+- **Flask** — web framework and routes
+- **SQLite** — database
+- **HTML** — page structure and templates
+- **CSS** — page styling
+- **JavaScript** — form requests, QR scanning, search, and page interactions
+- **qrcode** and **Pillow** — QR image generation
 
-- **HTML** — Structures the web pages.
-- **CSS** — Styles the interface and improves the user experience.
-- **JavaScript** — Handles client-side interactions and QR-related functionality.
-- **Python (Flask)** — Provides the backend web application.
-- **SQLite** — Stores application data.
+## Project Structure
 
-## ⚙️ How It Works
+```text
+MediQR/
+├── app.py                 # Flask application and routes
+├── database.py            # SQLite database operations
+├── requirements.txt       # Python dependencies
+├── .gitignore
+├── templates/
+│   ├── index.html
+│   ├── login.html
+│   ├── signup.html
+│   ├── dashboard.html
+│   ├── register.html
+│   ├── edit.html
+│   └── patient.html
+└── static/
+    ├── script.js          # Browser interactions and QR scanner
+    ├── style.css
+    └── qr_codes/          # Generated QR images (created/used by the app)
+```
 
-1. The user logs in to the application.
-2. The user accesses their medical dashboard.
-3. The user adds or updates their medical profile.
-4. The application generates a QR code associated with the profile.
-5. The QR code can be scanned to access the information supported by the application.
+The SQLite database (`mediqr.db`) is created/initialized by the application. Generated QR images may be stored under `static/qr_codes/`.
 
-**Note:** The information displayed and the scanning functionality depend on the application's implementation and configuration.
+## Run Locally
 
-## 📂 Project Structure
+### 1. Install Python
 
-The project contains the frontend, backend, and supporting files required to run the application.
+Install a supported Python 3 version if it is not already installed.
 
-Typical components include:
+### 2. Clone the repository
 
-- HTML files for the web pages.
-- CSS files for styling.
-- JavaScript files for client-side functionality.
-- Python files for Flask routes and backend logic.
-- An SQLite database for application data.
-- QR code-related files or functionality.
+```bash
+git clone https://github.com/rbhavya277-glitch/MediQR.git
+cd MediQR
+```
 
-The exact file structure may vary depending on the current version of the project.
+### 3. Create and activate a virtual environment
 
-## ▶️ Getting Started
+**Windows PowerShell:**
 
-### Prerequisites
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
 
-Install Python and ensure that Git is available if you want to clone the repository.
+If PowerShell blocks activation, you can use Command Prompt instead:
 
-### Installation
+```bat
+.venv\Scripts\activate.bat
+```
 
-1. Clone the repository:
+### 4. Install dependencies
 
-   ```bash
-   git clone https://github.com/rbhavya277-glitch/MediQR.git
-   ```
+```bash
+python -m pip install -r requirements.txt
+```
 
-2. Navigate to the project directory:
+### 5. Start the application
 
-   ```bash
-   cd MediQR
-   ```
+```bash
+python app.py
+```
 
-3. Create and activate a virtual environment (recommended):
+Open the local address printed in the terminal (typically `http://127.0.0.1:5000`) in your browser.
 
-   **Windows PowerShell:**
+To stop the server, press `Ctrl+C` in the terminal.
 
-   ```powershell
-   python -m venv venv
-   .\venv\Scripts\Activate.ps1
-   ```
+## How It Works
 
-4. Install the dependencies listed in the project's `requirements.txt`, if available:
+1. A user creates an account and signs in.
+2. The dashboard lets the user create or view a medical profile.
+3. Flask validates the submitted fields and stores profile data in SQLite.
+4. The application generates a unique MediQR ID and creates a QR image containing that ID.
+5. The patient ID can be used to look up the associated record in the application.
+6. The JavaScript scanner uses the browser camera (with permission) to read a QR code and navigate to the corresponding patient record.
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+Camera access may require `localhost` or HTTPS and permission from the browser. The QR scanner library is loaded from a third-party CDN, so an internet connection is needed for that feature.
 
-5. Run the Flask application using the appropriate entry-point file.
+## Privacy and Security Notice
 
-   For example, if the main Flask file is named `app.py`:
+This repository is an educational prototype and has **not** been hardened for real medical data. Before any real-world deployment, important changes are required, including:
 
-   ```bash
-   python app.py
-   ```
+- Store passwords using a secure password-hashing method instead of plain text.
+- Replace the demo Flask secret key with a strong secret loaded from an environment variable.
+- Restrict patient record access so users can only view or edit records they are authorized to access.
+- Protect sensitive endpoints, including patient-data API routes.
+- Add robust input validation, CSRF protection where appropriate, secure cookie settings, and production server configuration.
+- Keep real patient records, local databases, credentials, and generated private data out of the public repository.
+- Perform security and privacy testing before deployment.
 
-6. Open the local URL displayed in your terminal.
+**Never commit real patient records or secrets to GitHub.** The database and QR images in a local development folder should be reviewed before publishing.
 
-**Important:** The exact installation commands depend on the filenames and dependencies in the repository. Make sure the entry-point file and dependency list match the actual project.
+## Future Improvements
 
-## 🔒 Security and Privacy
+- Strengthen authentication and role-based access control
+- Improve privacy protections for patient record retrieval
+- Add emergency-contact workflows
+- Improve mobile usability and accessibility
+- Add automated tests and clearer error handling
+- Prepare a secure deployment configuration
 
-Medical information is sensitive. A production version should implement appropriate authentication, access controls, secure data storage, and protection against unauthorized access.
+## License
 
-This project is an educational prototype and should not be used as a substitute for professional emergency medical services.
-
-## 🔮 Future Improvements
-
-- Improve QR scanning and medical profile retrieval.
-- Strengthen authentication and authorization.
-- Add emergency contact information.
-- Improve mobile responsiveness.
-- Enhance data privacy and security.
-- Deploy the application for wider accessibility after appropriate security testing.
-
-## 👥 Team Project
-
-MediQR was developed as a student project to explore how web technologies and QR codes can support access to medical information during emergencies.
-
-## 📄 License
-
-See the [LICENSE](LICENSE) file for licensing information, if included in the repository.
+Check the repository for a `LICENSE` file. If no license is present, reuse and redistribution permissions have not been explicitly granted.
